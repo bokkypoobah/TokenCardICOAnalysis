@@ -8,7 +8,6 @@ The contributions and issued tokens have been reconciled in this report, with th
 
 TokenCard will have to deploy a new TKN token contract with the correct figures. Individuals who have been sold TKN tokens on the old TKN contract may have lost some ethers in exchange of the worthless old TKN tokens.
 
-
 <br />
 
 <hr />
