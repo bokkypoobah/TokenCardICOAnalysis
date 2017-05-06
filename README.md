@@ -84,6 +84,8 @@ The major error with the crowdsale token distribution is caused by the price for
 
 You can view the same data in the spreadsheet by selecting Count = 1 and Ccy = SNGLS in the **All** or **SNGLS** worksheet.
 
+With the proper crediting calculations for SNGLS contributions, only 4.91% of the total tokens issued would be for the SNGLS contributions. Due to the x10 error, SNGLS contributions have resulted in 34% of tokens being issued against the SNGLS contributions.
+
 <br />
 
 ### DGD Does Not Have A x10 Error
