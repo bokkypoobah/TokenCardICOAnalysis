@@ -23,8 +23,14 @@ function getEtherData() {
     var block = eth.getBlock(i, true);
     if (block != null && block.transactions != null) {
       block.transactions.forEach( function(e) {
-        var txR = eth.getTransactionReceipt(e.hash);
-        if (e.to == icoAddress && e.gas != txR.gasUsed) {
+        var status = debug.traceTransaction(e.hash);
+        var txOk = true;
+        if (status.structLogs.length > 0) {
+          if (status.structLogs[status.structLogs.length-1].error) {
+            txOk = false;
+          }
+        }
+        if (e.to == icoAddress && txOk) {
           count++;
           var ethers = web3.fromWei(e.value, "ether");
           var tokenBalance = tknToken.balanceOf(e.from, tknTokenBalanceBlock).div(1e8);
