@@ -15,8 +15,9 @@ TokenCard will have to deploy a new TKN token contract with the correct figures.
 **Table of contents**
 * [Summary](#summary)
 * [Details](#details)
-  * [SNGLS x10 Error]()
-  * [Bonus Factor](#bonus-factor)
+  * [SNGLS x10 Error](#sngls-x10-error)
+  * [DGD Does Not Have A x10 Error](#dgd-does-not-have-a-x10-error)
+  * [Bonus Factor Issue](#bonus-factor-issue)
 * [Scripts And Data](#scripts-and-data)
   * [Scripts](#scripts)
   * [Raw Data](#raw-data)
@@ -73,6 +74,8 @@ Last non-zero ICO transaction: [0xce7c2a9e...](https://etherscan.io/tx/0xce7c2a9
 
 Funding period: 30 minutes 13 seconds
 
+<br />
+
 ### SNGLS x10 Error
 
 The major error with the crowdsale token distribution is caused by the price for SNGLS being set to a number 10x too high. See the **SNGLS** worksheet within [results/TokenCardICODistribution.xlsx](results/TokenCardICODistribution.xlsx) for the details.
@@ -81,6 +84,7 @@ The major error with the crowdsale token distribution is caused by the price for
 
 You can view the same data in the spreadsheet by selecting Count = 1 and Ccy = SNGLS in the **All** or **SNGLS** worksheet.
 
+<br />
 
 ### DGD Does Not Have A x10 Error
 
@@ -93,6 +97,8 @@ From my analysis, all DGD contributions were credited with the correct amounts (
 ![images/TokenCardDGDContributions.png](images/TokenCardDGDContributions.png)
 
 You can view the same data in the spreadsheet by selecting Count = 1 and Ccy = DGD in the **All** worksheet.
+
+<br />
 
 ### Bonus Factor Issue
 
@@ -1006,6 +1012,8 @@ contract TokenHolder {
     }
 }
 ```
+
+<br />
 
 ### Common.sol
 
