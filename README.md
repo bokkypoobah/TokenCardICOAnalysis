@@ -1,5 +1,7 @@
 # TokenCard ICO Analysis (Work in progress)
 
+**NOTE that the analysis below was all done against the old token contract. Analysis on the new token contract will be written up shortly.**
+
 The TokenCard TKN ICO commenced at May-02-2017 04:01:03 PM +UTC and closed 30 minutes 13 seconds later at May-02-2017 04:31:16 PM +UTC.
 
 A total of USD 16,685,263.02 (exchange rate shortly after the closed) was raised, but there were some major bugs in the distribution of the tokens.
