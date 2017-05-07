@@ -148,6 +148,13 @@ Note that this script uses gas == gasUsed to detect whether a transaction has an
 
 [results/TokenCardICODistribution.xlsx](results/TokenCardICODistribution.xlsx)
 
+**All** 
+
+* Added Count column
+* Sorted by count, block, account
+
+
+3rd attempt - missing GNT 3638543 90,000 GNT from https://etherscan.io/address/0x9b57b141d0ecbdf7dcd36902b8fc0ce79ddb175f tx https://etherscan.io/tx/0x38db736d4fb937902f2ffdd55e1ba199b574a4736ec6810b7556d9f9e48d9015
 
 <br />
 

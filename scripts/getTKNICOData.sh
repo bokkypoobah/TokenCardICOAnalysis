@@ -10,7 +10,7 @@ var tknToken = web3.eth.contract(tokenABI).at(tknTokenAddress);
 
 var icoFirstTxBlock = 3638466;
 var icoLastTxBlock = 3638577;
-var tknTokenBalanceBlock = parseInt(icoLastTxBlock) + 100;
+var tknTokenBalanceBlock = parseInt(icoLastTxBlock) + 200;
 // icoLastTxBlock = parseInt(icoFirstTxBlock) + 4;
 
 console.log("RESULT: Account\tBlock\tCcy\t#\tAmount\tEthers\tTokens");
@@ -81,25 +81,28 @@ function getTokenData() {
   addToken("SWT", "0xb9e7f8568e08d5659f5d29c4997173d84cdf2607", 18, 26, 18, 1.38);
   addToken("MKR", "0xc66ea802717bfb9833400264dd12c2bceaa34a6d", 18, 26, 18, 75.40);
   addToken("SNGLS", "0xaec2e87e0a235266d9c5adc9deb4b2e29b54d009", 0, 8, 0, 0.1029);
+  addToken("EDG", "0x08711d3b02c8758f2fb3ab4e80228418a7f8e39c", 0, 8, 0, 0);
+  addToken("GUP", "0xf7b098298f7c69fc14610bf71d5e02c60792894c", 3, 11, 3, 0);
 
   var ethPrice = 75.00;
 
   var count = 0;
   var filter = web3.eth.filter({fromBlock: icoFirstTxBlock, toBlock: icoLastTxBlock, topics: [["0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"]]});
   filter.watch(function(e, r) {
-    // console.log(JSON.stringify(r));
+    // console.log("RESULT: " + JSON.stringify(r));
     var fromAddress = "0x" + r.topics[1].substring(26, 66);
     var toAddress = "0x" + r.topics[2].substring(26, 66);
     if (toAddress == icoAddress) {
       count++;
       var token = tokenByAddress[r.address];
-      var decimals = token.decimals;
-      var amount = new BigNumber(r.data.substring(2, 66), 16);
-      amount = amount.shift(-decimals);
-      var ethEquivalent = amount.mul(token.price).div(ethPrice);
-      var tokenBalance = tknToken.balanceOf(fromAddress, tknTokenBalanceBlock).div(1e8);
-      // console.log("  " + fromAddress + " => " + toAddress + " " + token.token + " decimals=" + decimals + " amount=" + amount + " ethEquivalent=" + ethEquivalent + " tokenBalance=" + tokenBalance);
-      console.log("RESULT: " + fromAddress + "\t" + r.blockNumber + "\t" + token.token + "\t" + count + "\t" + amount + "\t" + ethEquivalent + "\t" + tokenBalance);
+      if (token != null) {
+        var decimals = token.decimals;
+        var amount = new BigNumber(r.data.substring(2, 66), 16);
+        amount = amount.shift(-decimals);
+        var ethEquivalent = amount.mul(token.price).div(ethPrice);
+        var tokenBalance = tknToken.balanceOf(fromAddress, tknTokenBalanceBlock).div(1e8);
+        console.log("RESULT: " + fromAddress + "\t" + r.blockNumber + "\t" + token.token + "\t" + count + "\t" + amount + "\t" + ethEquivalent + "\t" + tokenBalance);
+      }
     }
   });
 }
