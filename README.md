@@ -121,8 +121,8 @@ Contributions immediately after the opening of the ICO contract received bonus t
 * +50% - 0 - 2 
 * +40% - none
 * +30% - 2 - 3
-* +20% - 3 - 18
-* +10% - 10 - 17
+* +20% - 3 - 11
+* +10% - 11 - 16
 
 <br />
 

@@ -4,16 +4,19 @@ geth attach << EOF | grep "RESULT: " | sed "s/RESULT: //"
 // geth attach << EOF
 
 var icoAddress = "0x49edf201c1e139282643d5e7c6fb0c7219ad1db7";
-var tknTokenAddress = "0x65b9d9b96bcce0b89d807413e4703d2c7451593a";
+var oldTokenAddress = "0x65b9d9b96bcce0b89d807413e4703d2c7451593a";
+var newTokenAddress = "0xaaaf91d9b90df800df4f55c205fd6989c977e73a";
 var tokenABI = [{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"totalSupply","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"}];
-var tknToken = web3.eth.contract(tokenABI).at(tknTokenAddress);
+var oldToken = web3.eth.contract(tokenABI).at(oldTokenAddress);
+var newToken = web3.eth.contract(tokenABI).at(newTokenAddress);
 
 var icoFirstTxBlock = 3638466;
 var icoLastTxBlock = 3638577;
 var tknTokenBalanceBlock = parseInt(icoLastTxBlock) + 200;
+var newTokenFilledBlock = 3661054;
 // icoLastTxBlock = parseInt(icoFirstTxBlock) + 4;
 
-console.log("RESULT: Account\tBlock\tCcy\t#\tAmount\tEthers\tTokens");
+console.log("RESULT: Account\tBlock\tCcy\t#\tAmount\tEthers\tOld Token Balance\tNew Token Balance");
 
 function getEtherData() {
   var contributionsByAccounts = {};
@@ -33,8 +36,9 @@ function getEtherData() {
         if (e.to == icoAddress && txOk) {
           count++;
           var ethers = web3.fromWei(e.value, "ether");
-          var tokenBalance = tknToken.balanceOf(e.from, tknTokenBalanceBlock).div(1e8);
-          console.log("RESULT: " + e.from + "\t" + e.blockNumber + "\tETH\t" + count + "\t" + ethers + "\t" + ethers + "\t" + tokenBalance);
+          var oldTokenBalance = oldToken.balanceOf(e.from, tknTokenBalanceBlock).div(1e8);
+          var newTokenBalance = newToken.balanceOf(e.from, newTokenFilledBlock).div(1e8);
+          console.log("RESULT: " + e.from + "\t" + e.blockNumber + "\tETH\t" + count + "\t" + ethers + "\t" + ethers + "\t" + oldTokenBalance + "\t" + newTokenBalance);
           // if (e.from in contributionsByAccounts) {
             //  var amt = contributionsByAccounts[e.from];
             // amt = amt.plus(e.value);
@@ -100,8 +104,9 @@ function getTokenData() {
         var amount = new BigNumber(r.data.substring(2, 66), 16);
         amount = amount.shift(-decimals);
         var ethEquivalent = amount.mul(token.price).div(ethPrice);
-        var tokenBalance = tknToken.balanceOf(fromAddress, tknTokenBalanceBlock).div(1e8);
-        console.log("RESULT: " + fromAddress + "\t" + r.blockNumber + "\t" + token.token + "\t" + count + "\t" + amount + "\t" + ethEquivalent + "\t" + tokenBalance);
+        var oldTokenBalance = oldToken.balanceOf(fromAddress, tknTokenBalanceBlock).div(1e8);
+        var newTokenBalance = newToken.balanceOf(fromAddress, newTokenFilledBlock).div(1e8);
+        console.log("RESULT: " + fromAddress + "\t" + r.blockNumber + "\t" + token.token + "\t" + count + "\t" + amount + "\t" + ethEquivalent + "\t" + oldTokenBalance + "\t" + newTokenBalance);
       }
     }
   });
