@@ -29,6 +29,7 @@ TokenCard will have to deploy a new TKN token contract with the correct figures.
   * [ICO Contract Source Code](#ico-contract-source-code)
   * [TKN Token Contract Source Code](#tkn-token-contract-source-code)
   * [Common.sol](#commonsol)
+* [Transaction Status](#transaction-status)
 
 <br />
 
@@ -1163,6 +1164,7 @@ I originally used the gas == gasUsed method of detecting whether a transaction w
 Here are the `debug.traceTransaction(...)` results for various transaction states:
 
 * Valid transaction
+
       var status = debug.traceTransaction("0x70dc434f1da1358dbf734c00abe8a07a7ca8c48a51bb34a69a8809b836e7d4d7")
       if (status.structLogs.length > 0) {
         console.log(JSON.stringify(status.structLogs[status.structLogs.length-1]));
@@ -1171,6 +1173,7 @@ Here are the `debug.traceTransaction(...)` results for various transaction state
       // "op":"STOP"
 
 * Transaction Rejected As It Was Submitted Before The ICO Started
+
       var status = debug.traceTransaction("0xc19afd60fa5d39f3a53ab911c76ec317c00b3e3779ad9952f815ffc5b972054f")
       if (status.structLogs.length > 0) {
         console.log(JSON.stringify(status.structLogs[status.structLogs.length-1]));
@@ -1179,6 +1182,7 @@ Here are the `debug.traceTransaction(...)` results for various transaction state
       // "op":"Missing opcode 0xfd"
 
 * Transaction Was Not Provided With Sufficient Gas
+
       var status = debug.traceTransaction("0x1ddac613c932ec623077c9996b51eb06d0a4265d0e15870acd0e5fe4800feab5")
       if (status.structLogs.length > 0) {
         console.log(JSON.stringify(status.structLogs[status.structLogs.length-1]));
@@ -1187,6 +1191,7 @@ Here are the `debug.traceTransaction(...)` results for various transaction state
       // "op":"CALL"
 
 * Transaction Reject As It Was Submitted After The ICO Ended
+
       var status = debug.traceTransaction("0xd33a3e59f1a359fcc092fcba123be56dfbc0885ce11e60358f57979784d4d120")
       if (status.structLogs.length > 0) {
         console.log(JSON.stringify(status.structLogs[status.structLogs.length-1]));
